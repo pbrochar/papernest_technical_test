@@ -1,5 +1,4 @@
 import requests
-from typing import Dict, List
 from network_model import Coverage, Networks
 import math
 import csv
