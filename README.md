@@ -17,7 +17,7 @@ ths csv file must have header like:
 ```csv
 Operateur;X;Y;2G;3G;4G
 ```
-where :
+Where :
 - Operateur: operator code.
 - X and Y are lamber93 location
 - 2G, 3G, 4G: "1" If these networks are available, "0" if not.
