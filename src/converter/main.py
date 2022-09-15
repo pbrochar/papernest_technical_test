@@ -8,7 +8,7 @@ from tqdm import tqdm
 warnings.filterwarnings("ignore")
 
 HEADER = ["Operateur", "X", "Y", "2G", "3G", "4G"]
-CONVERTED_FILE_NAME = "transformed_data.csv"
+CONVERTED_FILE_NAME = Path("transformed_data.csv")
 
 
 def lamber93_to_gps(x, y):
@@ -31,7 +31,7 @@ def get_number_of_lines(file: Path) -> int:
     return lines
 
 
-def convert_data(file: Path) -> None:
+def convert_data(src_file: Path, dest_file: Path) -> None:
     '''
     This Function is used to:
 
@@ -41,11 +41,11 @@ def convert_data(file: Path) -> None:
     
     tqdm is the library used for the progress bar.
     '''
-    lines = get_number_of_lines(file)
-    with open(CONVERTED_FILE_NAME, "w") as new_data_file:
+    lines = get_number_of_lines(src_file)
+    with open(dest_file, "w") as new_data_file:
         writer = csv.writer(new_data_file, delimiter=";")
         writer.writerow(HEADER)
-        with open(file, "r") as data_file:
+        with open(src_file, "r") as data_file:
             data = csv.reader(data_file, delimiter=";")
             next(data)
             for row in tqdm(data, total=lines):
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         print("Need one argument: csv file path", file=sys.stderr)
         sys.exit(1)
     if Path(sys.argv[1]).exists() and Path(sys.argv[1]).suffix == ".csv":
-        convert_data(Path(sys.argv[1]))
+        convert_data(Path(sys.argv[1]), CONVERTED_FILE_NAME)
     else:
         print("Invalid file", file=sys.stderr)
         sys.exit(1)

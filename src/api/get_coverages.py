@@ -1,17 +1,18 @@
 import requests
-from network_model import Coverage, Networks
+from .network_model import Coverage, Networks
 import math
 import csv
 from pathlib import Path
-from address_not_found_error import AddressNotFoundError
-from convert_networks_code import convert_network_code_to_name
+from .address_not_found_error import AddressNotFoundError
+from .convert_networks_code import convert_network_code_to_name
 
 FRANCE_ADDRESSES_API = "https://api-adresse.data.gouv.fr/search/"
-DATA_FILE = Path("../../data/transformed_data.csv")
+DATA_FILE = Path("./data/transformed_data.csv")
 
 def get_networks_from_coordonates(
     latitude: float,
     longitude: float,
+    data_file: Path
 ) -> Networks:
     '''
     Search in `DATA_FILE`  and compares the gps location with the searched location.
@@ -24,7 +25,7 @@ def get_networks_from_coordonates(
     '''
     coverages = {}
     networks_already_found = []
-    with open(DATA_FILE, "r") as data_file:
+    with open(data_file, "r") as data_file:
         coverages_data = csv.reader(data_file, delimiter=";")
         next(coverages_data)
         for row in coverages_data:
@@ -64,4 +65,4 @@ def get_coverage_from_address(address: str) -> Networks:
         longitude = data["features"][0]["geometry"]["coordinates"][1]
     except IndexError:
         raise AddressNotFoundError
-    return get_networks_from_coordonates(latitude, longitude)
+    return get_networks_from_coordonates(latitude, longitude, DATA_FILE)

@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
-from network_model import Networks
+from .network_model import Networks
 from typing import Dict
-from address_not_found_error import AddressNotFoundError
-from get_coverages import get_coverage_from_address
+from .address_not_found_error import AddressNotFoundError
+from .get_coverages import get_coverage_from_address
 
 app = FastAPI()
 
