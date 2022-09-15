@@ -18,6 +18,7 @@ python src/converter/main.py [CSV FILE PATH]
 ```bash
 ./script/run_api.sh
 ```
+The API documentation is located at /docs
 
 ## Run the tests
 ```bash
