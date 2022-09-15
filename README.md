@@ -1,4 +1,4 @@
-#Technical test for Papernest
+# Technical test for Papernest
 
 Two programs:
 - converter: converted a csv file containing location data in lamber93 format to gps data (lat, lon) 
